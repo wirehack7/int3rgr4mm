@@ -79,24 +79,8 @@ var pshim = function ( plain, channel ) {
 	push(JSON.stringify(plain), void 0, channel);
 }
 
-var config = {
-	server: "kornbluth.freenode.net",
-	botName: "int3rgr4mm",
-	delimiter: "!",
-	debug: true
-};
-
-var opts = {
-	channels: ["#int3rgr4mm"],
-	userName: "int3rgr4mm",
-	realName: "int3rgr4mm",
-	userPass: "<password>",
-	nickserv: false,
-	quakenet: true,
-	showErrors: true,
-	sep: "\u9999",
-	debug: true
-};
+var config = require('./config.js');
+var opts = require('./opts.js');
 
 var irc = require("irc"),
 bot = new irc.Client(config.server, config.botName, opts);
