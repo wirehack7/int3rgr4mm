@@ -194,8 +194,6 @@ var transform = function( str ) {
 
 var _style = "<style type=\"text/css\">*{font-family:\"Segoe UI\", Arial, Helvetica, sans-serif;font-size:10pt}body,html{margin:0;padding:0}a:hover,a:active,a:focus{color:red}ul{padding:0 0 0 2em}div.navigation{background:#eee;height:1.5em;left:0;padding:.333em .666em;position:fixed;top:0;width:100%}div.navigation span.title{color:#444;font-weight:700}div.index,div.log{margin:2.5em 0 0;padding:0 .333em 1em}div.channels{margin:1.5em 0 0;padding:0 .333em 1em}table.log{border-collapse:collapse}table.log tr td{border:0;padding:.1em .5em;vertical-align:top}table.log tr td.time{border-right:1px solid #eee}table.log tr td.time a{color:#444;text-decoration:none}table.log tr td.time a.time-anchor{position:relative;top:-2.5em;visibility:hidden}table.log tr.kick td.content{color:red;font-style:italic}table.log tr.message td.content{color:#000}table.log tr.message td.content span.inverse{background-color:#000;color:#FFF}table.log tr.message td.content a.inverse{background-color:#000}table.log tr.message td.content .italic{font-style:italic}table.log tr.message td.content .monospace{font-family:monospace;white-space:pre}a,a:visited,table.log tr.message td.nick{color:#c50}div.navigation span.nolink,table.log tr.action td.nick,table.log tr.join td.nick,table.log tr.quit td.nick,table.log tr.part td.nick,table.log tr.kick td.nick,table.log tr.nick td.nick,table.log tr.topic td.nick{color:#444}table.log tr td.time a:hover,table.log tr.message td.content .underline{text-decoration:underline}table.log tr.action td.content,table.log tr.join td.content,table.log tr.quit td.content,table.log tr.part td.content,table.log tr.nick td.content,table.log tr.topic td.content{color:#444;font-style:italic}table.log tr.kick td.content span.victim,table.log tr.nick td.content span.new_nick,table.log tr.topic td.content span.topic,table.log tr.message td.content .bold{font-weight:700}</style>";
 
-var _js = "<script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>";
-
 var _render = function ( cn, dh, cb ) {
 	var dstamp = dstampFromDhash(dh);
 
@@ -245,7 +243,7 @@ var _render = function ( cn, dh, cb ) {
 				y.push(_e);
 			}, function () {
 				x += y.reverse().join("\n");
-				x += "</tbody></table></div>" + _js + "</body>" + (dh === dhash() ? clientjs[0] + "/" + cn.split("#").join("").split(".").join("") + "/latest" + clientjs[1] : "") + "</html>";
+				x += "</tbody></table></div></body>" + (dh === dhash() ? clientjs[0] + "/" + cn.split("#").join("").split(".").join("") + "/latest" + clientjs[1] : "") + "</html>";
 				
 				cb(x)
 			})
@@ -382,7 +380,7 @@ clogindex = ["<!DOCTYPE html><html lang=\"en\">" + _style + "<head><title>channe
 */
 
 clientjs = ["<script type=\"text/javascript\">window.$$$ = function(u, cb, async) {c = document.createElement(\"script\"), c.src = u;async && (c.async = true);cb && (c.onload = cb);document.body.appendChild(c)};$$$(\"/echtzeit/client.js\", function () {var client = new echtzeit.Client('/echtzeit');client.subscribe('",
-	    "', function(data) {if(data&&data.payload){var jump=window.scrollY+window.innerHeight>=document.body.clientHeight-20;document.body.querySelector(\"tbody\").innerHTML += data.payload;jump&&($(\"html, body\").animate({ scrollTop: $(document).height() }, \"fast\"))}});}, true);</script>"]
+	    "', function(data) {if(data&&data.payload){var jump=window.scrollY+window.innerHeight>=document.body.clientHeight-20;document.body.querySelector(\"tbody\").innerHTML += data.payload;jump&&(window.scrollTo(0, document.body.scrollHeight))}});}, true);</script>"]
 
 var srv = http.createServer(function (request, response) {
 	process.nextTick(function () {
